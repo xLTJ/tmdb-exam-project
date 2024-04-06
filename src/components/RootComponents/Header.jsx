@@ -2,9 +2,9 @@ import {NavLink} from "react-router-dom";
 
 export default function Header() {
     return (
-        <header className={'navbar bg-neutral text-neutral-content gap-4'}>
+        <header className={'navbar bg-neutral text-neutral-content gap-4 top-0 sticky z-50'}>
             <div className={'navbar-start'}>
-                <NavLink className={'btn btn-ghost text-2xl font-bold'} to={'/home'}>TMDB<span
+                <NavLink className={'btn btn-ghost text-2xl font-bold'} to={'/'}>TMDB<span
                     className={'text-primary'}>Thingy</span></NavLink>
             </div>
             <div className={'navbar-end'}>
