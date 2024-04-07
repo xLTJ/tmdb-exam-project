@@ -12,7 +12,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/home'} element={<LandingPage/>}/>
         <Route path={'/search'} element={<SearchPage/>}/>
     </Route>
-))
+), {basename: "/tmdb-exam-project/"})
 
 function App() {
     return (
