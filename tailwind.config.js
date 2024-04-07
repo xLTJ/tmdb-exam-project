@@ -9,9 +9,11 @@ export default {
     },
     plugins: [
         require('daisyui'),
+        require("tailwind-gradient-mask-image"),
+        require('tailwind-scrollbar')
     ],
     daisyui: {
-        themes: ['light', 'dark', 'synthwave', 'valentine', 'sunset', 'night', 'winter', 'fantasy', 'retro']
+        themes: ['light', 'dark', 'synthwave', 'valentine', 'sunset', 'night', 'winter', 'fantasy', 'retro', "cupcake", "pastel", "autumn"]
     }
 }
 
