@@ -1,8 +1,21 @@
 import Hero from "./Hero.jsx";
 import MovieCarouselDisplay from "./MovieCarouselDisplay.jsx";
 import testMovieList from "./testMovieList.json"
+import {useEffect} from "react";
+import tmdbApi from "../../services/tmdbApi.js";
 
 export default function LandingPage() {
+    useEffect(() => {
+
+        async function fetchData() {
+            const movies = await tmdbApi.discoverMovies({sort_by: 'popularity.desc'});
+            console.log(movies);
+            return movies;
+        }
+
+        fetchData().catch(console.error);
+    })
+
     return (
         <div className={"container mx-auto"}>
             <Hero/>
