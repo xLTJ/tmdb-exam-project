@@ -1,12 +1,18 @@
 import MovieCard from "./MovieCard.jsx";
 
 export default function MovieCarouselDisplay({movieList}) {
-    const movieCards = movieList.results.map((movie) => <MovieCard movieInfo={movie} key={movie.id}/>)
+    let movieCards;
+
+    if (movieList.results) {
+        movieCards = movieList.results.map((movie) => <MovieCard movieInfo={movie} key={movie.id}/>)
+    } else {
+        movieCards = 'Loading'
+    }
 
     return (
         <div
             className={'flex overflow-x-auto py-10 gap-8 gradient-mask-r-90-d scrollbar-thin'}>
-            {movieCards}
+            {movieCards === 'Loading' ? <h1>Loading</h1> : movieCards}
         </div>
     )
 }
