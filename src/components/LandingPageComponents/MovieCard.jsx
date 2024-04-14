@@ -8,6 +8,8 @@ export default function MovieCard({movieInfo, type}) {
         return date.toLocaleDateString('en-US', format);
     }
 
+    const date = movieInfo.release_date ? formatDate(movieInfo.release_date) : formatDate(movieInfo.first_air_date)
+
     return (
         <NavLink
             className={'card max-w-64 bg-base-200 shadow-lg hover:shadow-accent transition ease-in-out hover:scale-105 shrink-0 first:ml-12 last:mr-12'}
@@ -16,7 +18,7 @@ export default function MovieCard({movieInfo, type}) {
                 src={`https://image.tmdb.org/t/p/w500${movieInfo.poster_path}.jpg`}/></figure>
             <div className={'card-body pt-5'}>
                 <h2 className="card-title">{movieInfo.title}</h2>
-                <p>{formatDate(movieInfo.release_date)}</p>
+                <p>{date}</p>
             </div>
         </NavLink>
     )
