@@ -4,7 +4,8 @@ export default function MovieCarouselDisplay({movieList}) {
     let movieCards;
 
     if (movieList.results) {
-        movieCards = movieList.results.map((movie) => <MovieCard movieInfo={movie} key={movie.id}/>)
+        movieCards = movieList.results.map((movie) => <MovieCard movieInfo={movie} type={movieList.type}
+                                                                 key={movie.id}/>)
     } else {
         movieCards = 'Loading'
     }

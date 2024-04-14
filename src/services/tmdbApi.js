@@ -12,6 +12,23 @@ const TmdbApi = {
 
         const body = await fetch(`https://api.themoviedb.org/3/discover/movie?${searchParams}`, payload)
         const response = await body.json();
+        response.type = 'movie';
+
+        return response;
+    },
+    async discoverSeries(options) {
+        const searchParams = new URLSearchParams(options).toString();
+        const payload = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${APIKey}`
+            },
+        }
+
+        const body = await fetch(`https://api.themoviedb.org/3/discover/tv?${searchParams}`, payload)
+        const response = await body.json();
+        response.type = 'tv';
 
         return response;
     }
