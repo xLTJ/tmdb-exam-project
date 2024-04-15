@@ -31,7 +31,7 @@ export default function LandingPage() {
     return (
         <div className={"container mx-auto"}>
             <Hero/>
-            <main className={'py-10'}>
+            <main className={"py-10"}>
                 <div className={"container mb-10"}>
                     <h3 className={"text-3xl font-bold ml-6"}>Popular</h3>
                     <MovieCarouselDisplay movieList={popularMovies}/>

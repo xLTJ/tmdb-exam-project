@@ -9,7 +9,7 @@ export default function Hero() {
                 <div className="max-w-md">
                     <h1 className="text-5xl font-bold text-white">Movie Website</h1>
                     <p className="py-6 text-white">På denne episke hjemmeside kan du finde episke film (woah)</p>
-                    <NavLink className="btn btn-primary" to={'/search'}>Get Started</NavLink>
+                    <NavLink className="btn btn-primary" to={'/graph'}>Get Started</NavLink>
                 </div>
             </div>
         </div>

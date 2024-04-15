@@ -1,6 +1,30 @@
 import {NavLink} from "react-router-dom";
+import {useMovieStore, useMovieConnectionStore} from "../../services/store.js";
 
 export default function Header() {
+    const testAddMovie = (e) => {
+        e.preventDefault()
+        useMovieStore.getState().addMovie({id: 1, name: "epic Movie"});
+        useMovieStore.getState().addMovie({id: 2, name: "Horrible Movie"});
+        useMovieStore.getState().addMovie({id: 3, name: "meh Movie"});
+        useMovieStore.getState().addMovie({id: 4, name: "idk Movie"});
+        useMovieConnectionStore.getState().addConnection(1, 2);
+        useMovieConnectionStore.getState().addConnection(1, 3);
+        useMovieConnectionStore.getState().addConnection(1, 4);
+        useMovieConnectionStore.getState().addConnection(2, 4);
+        useMovieConnectionStore.getState().addConnection(2, 3);
+
+        console.log(useMovieStore.getState())
+        console.log(useMovieConnectionStore.getState())
+    }
+
+    const testRemoveMovie = (e) => {
+        e.preventDefault();
+        useMovieConnectionStore.getState().removeConnection(2)
+
+        console.log(useMovieConnectionStore.getState())
+    }
+
     return (
         <header className={'navbar bg-neutral text-neutral-content gap-4 top-0 sticky z-50'}>
             <div className={'navbar-start'}>
@@ -27,8 +51,8 @@ export default function Header() {
                 <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn text-lg">Menu</div>
                 <ul tabIndex={0}
                     className="menu dropdown-content shadow bg-base-100 rounded-box w-52 text-base-content">
-                    <li><a>Login to something</a></li>
-                    <li><a>Main Page</a></li>
+                    <li><a onClick={testAddMovie}>Test Add Movie</a></li>
+                    <li><a onClick={testRemoveMovie}>Test remove links</a></li>
                 </ul>
             </div>
         </header>
