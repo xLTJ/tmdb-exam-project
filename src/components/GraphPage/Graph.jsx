@@ -1,23 +1,20 @@
 import {ForceGraph3D} from "react-force-graph";
-import {useRef, useEffect, useState} from "react";
+import {useRef, useEffect, useState, useMemo} from "react";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js"
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 
-export default function Graph() {
+export default function Graph({graphData}) {
     const graphRef = useRef();
     const [currentData, setCurrentData] = useState({nodes: [], links: []})
 
-    function genRandomTree(N = 300, reverse = false) {
-        return {
-            nodes: [...Array(N).keys()].map(i => ({id: i})),
-            links: [...Array(N).keys()]
-                .filter(id => id)
-                .map(id => ({
-                    [ reverse ? 'target' : 'source' ]: id,
-                    [ reverse ? 'source' : 'target' ]: Math.round(Math.random() * (id - 1))
-                }))
+    const nodeSetup = useMemo(() => {
+        const currentGraph = {
+            ...graphData,
+            nodes: graphData.nodes.map(node => ({...node, windowActive: false})),
         };
-    }
+        console.log("update")
+        return currentGraph;
+    }, [graphData]);
 
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
@@ -30,22 +27,22 @@ export default function Graph() {
     }, []);
 
     useEffect(() => {
-        setCurrentData({nodes: useMovieStore.getState().movies, links: useMovieConnectionStore.getState().connections})
-    }, [currentData]);
+        setCurrentData(nodeSetup);
+        console.log(currentData);
+    }, [nodeSetup]);
 
     const groups = 15;
     // const data = {nodes: useMovieStore.getState().movies, links: useMovieConnectionStore.getState().connections}
-    const data = genRandomTree(2000)
 
     return (
         <div className={"overflow-hidden"}>
             <ForceGraph3D
-                graphData={data}
+                graphData={currentData}
                 nodeLabel="name" // Display movie titles
                 ref={graphRef}
                 backgroundColor={"black"}
                 nodeAutoColorBy={d => d.id % groups}
-                linkAutoColorBy={d => data.nodes[ d.source ].id % groups}
+                linkAutoColorBy={d => graphData.nodes[ d.source ].id % groups}
                 height={window.innerHeight - 64}
             />
         </div>

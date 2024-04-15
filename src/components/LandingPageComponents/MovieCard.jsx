@@ -1,12 +1,12 @@
 import {NavLink} from "react-router-dom";
 
-export default function MovieCard({movieInfo, type}) {
+const formatDate = (dateToConvert) => {
+    const date = new Date(dateToConvert);
+    const format = {month: 'long', day: 'numeric', year: 'numeric'};
+    return date.toLocaleDateString('en-US', format);
+}
 
-    const formatDate = (dateToConvert) => {
-        const date = new Date(dateToConvert);
-        const format = {month: 'long', day: 'numeric', year: 'numeric'};
-        return date.toLocaleDateString('en-US', format);
-    }
+export default function MovieCard({movieInfo, type}) {
 
     const date = movieInfo.release_date ? formatDate(movieInfo.release_date) : formatDate(movieInfo.first_air_date)
 

@@ -1,9 +1,14 @@
 import Graph from "./Graph.jsx";
+import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
+import {useEffect, useState} from "react";
 
 export default function GraphPage() {
+    const movieList = useMovieStore(state => state.movies);
+    const connectionList = useMovieConnectionStore(state => state.connections);
+
     return (
-        <div className={"container mx-auto"}>
-            <Graph/>
+        <div>
+            <Graph graphData={{nodes: movieList, links: connectionList}}/>
         </div>
     )
 }
