@@ -1,10 +1,16 @@
 import Hero from "./Hero.jsx";
 import MovieCarouselDisplay from "./MovieCarouselDisplay.jsx";
-import testMovieList from "./testMovieList.json"
 import {useEffect, useState} from "react";
 import tmdbApi from "../../services/tmdbApi.js";
 
 export default function LandingPage() {
+    // State for the popular and top-rated movies and series
+    const [popularMovies, setPopularMovies] = useState({});
+    const [topRatedMovies, setTopRatedMovies] = useState({});
+    const [popularSeries, setPopularSeries] = useState({});
+    const [topRatedSeries, setTopRatedSeries] = useState({});
+
+    // Fetch the popular and top-rated movies and series as soon as the component is rendered
     useEffect(() => {
         async function fetchData() {
             setPopularMovies(await tmdbApi.discoverMovies({sort_by: 'popularity.desc'}));
@@ -23,11 +29,7 @@ export default function LandingPage() {
         fetchData().catch(console.error);
     });
 
-    const [popularMovies, setPopularMovies] = useState({});
-    const [topRatedMovies, setTopRatedMovies] = useState({});
-    const [popularSeries, setPopularSeries] = useState({});
-    const [topRatedSeries, setTopRatedSeries] = useState({});
-
+    // Render the landing page
     return (
         <div className={"container mx-auto"}>
             <Hero/>

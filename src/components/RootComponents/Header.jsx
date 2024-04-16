@@ -1,13 +1,15 @@
 import {NavLink} from "react-router-dom";
 import {useMovieStore, useMovieConnectionStore} from "../../services/store.js";
+import Movie from "../../services/movieClass.js";
 
 export default function Header() {
+    // Test functions
     const testAddMovie = (e) => {
         e.preventDefault()
-        useMovieStore.getState().addMovie({id: 1, name: "epic Movie"});
-        useMovieStore.getState().addMovie({id: 2, name: "Horrible Movie"});
-        useMovieStore.getState().addMovie({id: 3, name: "meh Movie"});
-        useMovieStore.getState().addMovie({id: 4, name: "idk Movie"});
+        useMovieStore.getState().addMovie(new Movie({id: 438631, name: "Dune"}));
+        useMovieStore.getState().addMovie(new Movie({id: 1011985, name: "Kung Fu Panda 4"}));
+        useMovieStore.getState().addMovie(new Movie({id: 126308, name: "Shogun"}));
+        useMovieStore.getState().addMovie(new Movie({id: 27205, name: "Inception"}));
         useMovieConnectionStore.getState().addConnection(1, 2);
         useMovieConnectionStore.getState().addConnection(1, 3);
         useMovieConnectionStore.getState().addConnection(1, 4);
@@ -20,11 +22,12 @@ export default function Header() {
 
     const testRemoveMovie = (e) => {
         e.preventDefault();
-        useMovieConnectionStore.getState().removeConnection(2)
+        useMovieConnectionStore.getState().removeConnection(1)
 
         console.log(useMovieConnectionStore.getState())
     }
 
+    // Render the header
     return (
         <header className={'navbar bg-neutral text-neutral-content gap-4 top-0 sticky z-50'}>
             <div className={'navbar-start'}>

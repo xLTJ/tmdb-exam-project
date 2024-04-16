@@ -1,5 +1,6 @@
 import {NavLink} from "react-router-dom";
 
+// Function to format the date
 const formatDate = (dateToConvert) => {
     const date = new Date(dateToConvert);
     const format = {month: 'long', day: 'numeric', year: 'numeric'};
@@ -7,7 +8,7 @@ const formatDate = (dateToConvert) => {
 }
 
 export default function MovieCard({movieInfo, type}) {
-
+    // Check if the movie is a movie or a series and use the correct key for the date
     const date = movieInfo.release_date ? formatDate(movieInfo.release_date) : formatDate(movieInfo.first_air_date)
 
     return (

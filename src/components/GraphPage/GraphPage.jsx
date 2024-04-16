@@ -2,6 +2,7 @@ import Graph from "./Graph.jsx";
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 import {useEffect, useState} from "react";
 
+// Generate a random tree, used for testing. TODO: Maybe move this to a separate file.
 function genRandomTree(N = 300, reverse = false) {
     return {
         nodes: [...Array(N).keys()].map(i => ({id: i})),

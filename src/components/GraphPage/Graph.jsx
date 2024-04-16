@@ -9,10 +9,11 @@ export default function Graph({graphData}) {
     // UseMemo to update the graphData only if the graphData changes
     const nodeSetup = useMemo(() => {
         const currentGraph = {
-            nodes: graphData.nodes.map(node => ({...node, windowActive: false})),
+            nodes: graphData.nodes.map((node, index) => ({...node, windowActive: false, id: index + 1})),
             links: graphData.links.map(link => ({...link}))
         };
-        console.log("update")
+
+        console.log(currentGraph)
         return currentGraph;
     }, [graphData]);
 
@@ -29,6 +30,7 @@ export default function Graph({graphData}) {
 
     // Update the graphData when the nodeSetup changes, thus updating the graph
     useEffect(() => {
+        console.log(graphData)
         setCurrentData(nodeSetup);
         console.log(currentData);
     }, [nodeSetup]);

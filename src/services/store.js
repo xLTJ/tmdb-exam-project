@@ -4,7 +4,7 @@ import {create} from "zustand";
 const useMovieStore = create(setState => ({
     movies: [],
     addMovie: (newMovie) => {
-        if (useMovieStore.getState().movies.find((movie) => movie.id === newMovie.id)) {
+        if (useMovieStore.getState().movies.find((movie) => movie.movieId === newMovie.movieId)) {
             console.error("Movie Already Exists");
             return;
         }
@@ -14,12 +14,13 @@ const useMovieStore = create(setState => ({
     },
     removeMovie: (movieIdToRemove) => {
         setState(state => ({
-            movies: state.movies.filter((movie) => movie.id !== movieIdToRemove)
+            movies: state.movies.filter((movie) => movie.movieId !== movieIdToRemove)
         }));
         useMovieConnectionStore.getState().removeConnection(movieIdToRemove);
     }
 }));
 
+// State for storing the connections between the movies that are shown in the graph.
 const useMovieConnectionStore = create(setState => ({
     connections: [],
     addConnection: (source, target) => {

@@ -1,23 +1,17 @@
+import tmdbApi from "./tmdbApi.js";
+
 export default class Movie {
     constructor(movieDetails) {
-        this.id = movieDetails.id;
+        this.movieId = movieDetails.id;
         this.name = movieDetails.name;
     }
 
-    get getId() {
-        return this.id;
-    }
-
-    get getName() {
-        return this.name;
-    }
-
+    // Fetches detailed data for the movie
     async fetchDetailedData() {
-        const detailMovieDetails = {}
-        // TODO: Make it so that data is fetched
-
-        this.genres = detailMovieDetails.genres;
-        this.overview = detailMovieDetails.overview;
-        this.runtime = detailMovieDetails.runtime;
+        try {
+            this.detailedMovieDetails = await tmdbApi.getMovieDetails(this.id);
+        } catch (error) {
+            console.error(error);
+        }
     }
 }
