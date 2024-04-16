@@ -7,6 +7,7 @@ export default function Graph({graphData}) {
     const graphRef = useRef();
     const [currentData, setCurrentData] = useState({nodes: [], links: []})
 
+    // UseMemo to update the graphData only if the graphData changes
     const nodeSetup = useMemo(() => {
         const currentGraph = {
             ...graphData,
@@ -16,6 +17,7 @@ export default function Graph({graphData}) {
         return currentGraph;
     }, [graphData]);
 
+    // Add bloom effect to the graph
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
         bloomPass.strength = 0.6;
@@ -26,14 +28,15 @@ export default function Graph({graphData}) {
         composer.addPass(bloomPass);
     }, []);
 
+    // Update the graphData when the nodeSetup changes, thus updating the graph
     useEffect(() => {
         setCurrentData(nodeSetup);
         console.log(currentData);
     }, [nodeSetup]);
 
     const groups = 15;
-    // const data = {nodes: useMovieStore.getState().movies, links: useMovieConnectionStore.getState().connections}
-
+    
+    // Render the graph
     return (
         <div className={"overflow-hidden"}>
             <ForceGraph3D
