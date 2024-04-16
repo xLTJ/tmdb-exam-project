@@ -17,6 +17,9 @@ const useMovieStore = create(setState => ({
             movies: state.movies.filter((movie) => movie.movieId !== movieIdToRemove)
         }));
         useMovieConnectionStore.getState().removeConnection(movieIdToRemove);
+    },
+    getMovie: (movieId) => {
+        return useMovieStore.getState().movies.find((movie) => movie.movieId === movieId);
     }
 }));
 

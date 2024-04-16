@@ -9,7 +9,7 @@ export default class Movie {
     // Fetches detailed data for the movie
     async fetchDetailedData() {
         try {
-            this.detailedMovieDetails = await tmdbApi.getMovieDetails(this.id);
+            this.movieDetails = await tmdbApi.getMovieDetails(this.movieId);
         } catch (error) {
             console.error(error);
         }

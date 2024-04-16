@@ -1,15 +1,17 @@
 import {ForceGraph3D} from "react-force-graph";
 import {useRef, useEffect, useState, useMemo} from "react";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js"
+import GraphMovieDetails from "./GraphMovieDetails.jsx";
 
 export default function Graph({graphData}) {
     const graphRef = useRef();
-    const [currentData, setCurrentData] = useState({nodes: [], links: []})
+    const [currentData, setCurrentData] = useState({nodes: [], links: []});
+    const [selectedMovie, setSelectedMovie] = useState(null);
 
     // UseMemo to update the graphData only if the graphData changes
     const nodeSetup = useMemo(() => {
         const currentGraph = {
-            nodes: graphData.nodes.map((node, index) => ({...node, windowActive: false, id: index + 1})),
+            nodes: graphData.nodes.map((node, index) => ({...node, id: index + 1})),
             links: graphData.links.map(link => ({...link}))
         };
 
@@ -35,6 +37,10 @@ export default function Graph({graphData}) {
         console.log(currentData);
     }, [nodeSetup]);
 
+    const handleClick = (node) => {
+        setSelectedMovie(node);
+    }
+
     const groups = 15;
     
     // Render the graph
@@ -48,7 +54,9 @@ export default function Graph({graphData}) {
                 nodeAutoColorBy={d => d.id % groups}
                 linkAutoColorBy={d => graphData.nodes[ d.source ].id % groups}
                 height={window.innerHeight - 64}
+                onNodeClick={handleClick}
             />
+            {selectedMovie ? <GraphMovieDetails movieId={selectedMovie.movieId} setMovieDetails={setSelectedMovie}/> : null}
         </div>
     );
 }

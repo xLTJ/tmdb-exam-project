@@ -1,6 +1,7 @@
 import Graph from "./Graph.jsx";
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 import {useEffect, useState} from "react";
+import GraphMovieDetails from "./GraphMovieDetails.jsx";
 
 // Generate a random tree, used for testing. TODO: Maybe move this to a separate file.
 function genRandomTree(N = 300, reverse = false) {
@@ -18,7 +19,6 @@ function genRandomTree(N = 300, reverse = false) {
 export default function GraphPage() {
     const movieList = useMovieStore(state => state.movies);
     const connectionList = useMovieConnectionStore(state => state.connections);
-
 
     const testData = genRandomTree(500)
 
