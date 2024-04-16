@@ -1,7 +1,6 @@
 import {ForceGraph3D} from "react-force-graph";
 import {useRef, useEffect, useState, useMemo} from "react";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js"
-import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 
 export default function Graph({graphData}) {
     const graphRef = useRef();
@@ -10,8 +9,8 @@ export default function Graph({graphData}) {
     // UseMemo to update the graphData only if the graphData changes
     const nodeSetup = useMemo(() => {
         const currentGraph = {
-            ...graphData,
             nodes: graphData.nodes.map(node => ({...node, windowActive: false})),
+            links: graphData.links.map(link => ({...link}))
         };
         console.log("update")
         return currentGraph;
