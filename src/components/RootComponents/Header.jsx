@@ -7,14 +7,6 @@ export default function Header() {
     const testAddMovie = (e) => {
         e.preventDefault()
         useMovieStore.getState().addMovie(new Movie({id: 438631, name: "Dune"}));
-        useMovieStore.getState().addMovie(new Movie({id: 1011985, name: "Kung Fu Panda 4"}));
-        useMovieStore.getState().addMovie(new Movie({id: 126308, name: "Shogun"}));
-        useMovieStore.getState().addMovie(new Movie({id: 27205, name: "Inception"}));
-        useMovieConnectionStore.getState().addConnection(1, 2);
-        useMovieConnectionStore.getState().addConnection(1, 3);
-        useMovieConnectionStore.getState().addConnection(1, 4);
-        useMovieConnectionStore.getState().addConnection(2, 4);
-        useMovieConnectionStore.getState().addConnection(2, 3);
 
         console.log(useMovieStore.getState())
         console.log(useMovieConnectionStore.getState())
@@ -34,7 +26,7 @@ export default function Header() {
                 <NavLink className={'btn btn-ghost text-2xl font-bold'} to={'/'}>TMDB<span
                     className={'text-primary'}>Thingy</span></NavLink>
             </div>
-            <div className={'navbar-end'}>
+            <div className={'navbar-center'}>
                 <input type={'text'} placeholder={'Search movie or series'} className={'input input-primary w-96'}/>
             </div>
             <div className={'navbar-end gap-2'}>
@@ -49,14 +41,14 @@ export default function Header() {
                     <path
                         d="M12 1v2M12 21v2M4.2 4.2l1.4 1.4M18.4 18.4l1.4 1.4M1 12h2M21 12h2M4.2 19.8l1.4-1.4M18.4 5.6l1.4-1.4"/>
                 </svg>
-            </div>
-            <div className="dropdown dropdown-end">
-                <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn text-lg">Menu</div>
-                <ul tabIndex={0}
-                    className="menu dropdown-content shadow bg-base-100 rounded-box w-52 text-base-content">
-                    <li><a onClick={testAddMovie}>Test Add Movie</a></li>
-                    <li><a onClick={testRemoveMovie}>Test remove links</a></li>
-                </ul>
+                <div className="dropdown dropdown-end">
+                    <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn text-lg">Menu</div>
+                    <ul tabIndex={0}
+                        className="menu dropdown-content shadow bg-base-100 rounded-box w-52 text-base-content">
+                        <li><a onClick={testAddMovie}>Test Add Movie</a></li>
+                        <li><a onClick={testRemoveMovie}>Test remove links</a></li>
+                    </ul>
+                </div>
             </div>
         </header>
     )

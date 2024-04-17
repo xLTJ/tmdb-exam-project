@@ -34,7 +34,7 @@ const useMovieConnectionStore = create(setState => ({
             return;
         }
         setState(state => ({
-            connections: [...state.connections, {source: source, target: target}]
+            connections: [...state.connections, {sourceId: source, targetId: target}]
         }))
     },
     removeConnection: (sourceIdToRemove) => setState(state => ({

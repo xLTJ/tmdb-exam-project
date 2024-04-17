@@ -2,6 +2,7 @@ import {ForceGraph3D} from "react-force-graph";
 import {useRef, useEffect, useState, useMemo} from "react";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js"
 import GraphMovieDetails from "./GraphMovieDetails.jsx";
+import {key} from 'react';
 
 export default function Graph({graphData}) {
     const graphRef = useRef();
@@ -10,12 +11,18 @@ export default function Graph({graphData}) {
 
     // UseMemo to update the graphData only if the graphData changes
     const nodeSetup = useMemo(() => {
-        const currentGraph = {
-            nodes: graphData.nodes.map((node, index) => ({...node, id: index + 1})),
-            links: graphData.links.map(link => ({...link}))
-        };
+        const currentGraphNodes = graphData.nodes.map((node, index) => ({...node, id: index + 1}))
 
-        console.log(currentGraph)
+        const currentGraphLinks = graphData.links.map(link => (
+            {
+                ...link,
+                source: currentGraphNodes.find(node => node.movieId === link.sourceId).id,
+                target: currentGraphNodes.find(node => node.movieId === link.targetId).id
+            }
+        ));
+
+        const currentGraph = {nodes: currentGraphNodes, links: currentGraphLinks}
+
         return currentGraph;
     }, [graphData]);
 
@@ -32,9 +39,7 @@ export default function Graph({graphData}) {
 
     // Update the graphData when the nodeSetup changes, thus updating the graph
     useEffect(() => {
-        console.log(graphData)
         setCurrentData(nodeSetup);
-        console.log(currentData);
     }, [nodeSetup]);
 
     const handleClick = (node) => {
@@ -42,7 +47,7 @@ export default function Graph({graphData}) {
     }
 
     const groups = 15;
-    
+
     // Render the graph
     return (
         <div className={"overflow-hidden"}>
@@ -56,7 +61,12 @@ export default function Graph({graphData}) {
                 height={window.innerHeight - 64}
                 onNodeClick={handleClick}
             />
-            {selectedMovie ? <GraphMovieDetails movieId={selectedMovie.movieId} setMovieDetails={setSelectedMovie}/> : null}
+            {selectedMovie ?
+                <GraphMovieDetails
+                    key={selectedMovie.movieId}
+                    movieId={selectedMovie.movieId}
+                    setSelectedMovie={setSelectedMovie}
+                /> : null}
         </div>
     );
 }
