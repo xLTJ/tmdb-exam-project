@@ -16,6 +16,7 @@ export default class Movie {
         }
     }
 
+    // Fetches recommendations for the movie
     async fetchMovieRecommendations() {
         try {
             const recommendationsObject = await tmdbApi.getMovieRecommendations(this.movieId);
