@@ -10,7 +10,6 @@ export default class Movie {
     async fetchDetailedData() {
         try {
             this.movieDetails = await tmdbApi.getMovieDetails(this.movieId);
-            console.log("woaw")
         } catch (error) {
             console.error(error);
         }
