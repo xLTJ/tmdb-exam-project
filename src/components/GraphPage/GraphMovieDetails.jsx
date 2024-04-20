@@ -43,12 +43,12 @@ export default function GraphMovieDetails({movieId, setSelectedMovie}) {
         <div className={"absolute inset-0 top-16 z-10 flex flex-col justify-center items-center"}>
             <div
                 className={"card card-side card-compact shrink-0 shadow-2xl bg-base-300 max-w-screen-lg max-h-80 mt-10"}>
-                {loadingDetails ? <p>Loading</p> : <figure><img
+                {loadingDetails ? null : <figure><img
                     src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.movieDetails.poster_path}.jpg`}
                     alt="Movie"/></figure>}
                 <div className={"card-body max-w-96"}>
                     <h2 className={"card-title text-3xl py-0"}>{movie.name}</h2>
-                    {loadingDetails ? <span className="loading loading-spinner loading-lg"></span> : <MovieDetails/>}
+                    {loadingDetails ? <span className="loading loading-dots loading-lg"></span> : <MovieDetails/>}
                 </div>
                 <div className={"card-body min-w-40"}>
                     <h2 className={"font-bold text-center text-xl"}>Connections</h2>
