@@ -44,11 +44,6 @@
             name: production-files
             path: ./dist
 
-        - name: Set environment variables
-          env:
-            VITE_TMDB_API_KEY: ${{ secrets.VITE_TMDB_API_KEY }}
-          run: echo "VITE_TMDB_API_KEY=${VITE_TMDB_API_KEY}" >> $GITHUB_ENV
-
         - name: Deploy to GitHub Pages
           uses: peaceiris/actions-gh-pages@v3
           with:
