@@ -1,4 +1,4 @@
-const APIKey = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxMDAzYTFlOTI5Njc1OTQzOGVkZjg4NGViYWRkYTQwZCIsInN1YiI6IjY1ZWVkYzRjZTcyZmU4MDE4NTVjNTg0OCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.uT5Oez9JN_haaKtA3fLju9u6gcToAhF6TrUiIlVLMxo"
+const APIKey = import.meta.env.VITE_TMDB_API_KEY;
 const TmdbApi = {
     // Calls the TMDB API to discover movies
     async discoverMovies(options) {

@@ -27,7 +27,7 @@ export default function LandingPage() {
         }
 
         fetchData().catch(console.error);
-    });
+    }, []);
 
     // Render the landing page
     return (
