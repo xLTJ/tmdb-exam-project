@@ -11,6 +11,7 @@ export default function GraphSettings () {
             <div
                 className={"bg-neutral bg-opacity-60 collapse-content bg-opacity-10 peer-hover:bg-opacity-60 peer-checked:bg-opacity-40"}>
                 <label>
+                    <div className="divider m-0"></div>
                     <span className={"label-text"}>Node Titles</span>
                     <input
                         type="checkbox"
