@@ -8,7 +8,7 @@ export default function Hero() {
             <div className="hero-content text-center">
                 <div className="max-w-md">
                     <h1 className="text-5xl font-bold text-white">Movie Website</h1>
-                    <p className="py-6 text-white">På denne episke hjemmeside kan du finde episke film (woah)</p>
+                    <p className="py-6 text-white">På denne episke hjemmeside kan du finde episke film (woah). Du han også bruge vores film graf for at få nye film anbefalinger, or se hvordan de hænger sammen</p>
                     <NavLink className="btn btn-primary" to={'/graph'}>Get Started</NavLink>
                 </div>
             </div>
