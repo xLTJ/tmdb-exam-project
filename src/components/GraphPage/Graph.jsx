@@ -31,7 +31,7 @@ export default function Graph({graphData}) {
     // Add bloom effect to the graph
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
-        bloomPass.strength = 0.6;
+        bloomPass.strength = 1.2;
         bloomPass.radius = 0.5;
         bloomPass.threshold = 0;
 
@@ -54,7 +54,7 @@ export default function Graph({graphData}) {
         nodeExtra.className = "badge badge-sm bg-opacity-50 text-white z-0"
         return new CSS2DObject(nodeExtra);
     }
-    
+
     const groups = 15
 
     // Render the graph
