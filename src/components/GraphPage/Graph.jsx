@@ -31,8 +31,8 @@ export default function Graph({graphData}) {
     // Add bloom effect to the graph
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
-        bloomPass.strength = 3;
-        bloomPass.radius = 2;
+        bloomPass.strength = 5;
+        bloomPass.radius = 1.5;
         bloomPass.threshold = 0;
 
         const composer = graphRef.current.postProcessingComposer()
