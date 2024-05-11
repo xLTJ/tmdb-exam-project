@@ -3,6 +3,8 @@ import {useRef, useEffect, useState, useMemo} from "react";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js"
 import GraphMovieDetails from "./GraphMovieDetails.jsx";
 import {key} from 'react';
+import { CSS2DObject, CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
+import {useMovieGraphSettings} from "../../services/store.js";
 
 export default function Graph({graphData}) {
     const graphRef = useRef();
@@ -46,20 +48,30 @@ export default function Graph({graphData}) {
         setSelectedMovie(node);
     }
 
-    const groups = 15;
+    const nodeOverlay = node => {
+        const nodeExtra = document.createElement('div');
+        nodeExtra.textContent = node.name;
+        nodeExtra.className = "badge badge-sm bg-opacity-50 text-white z-0"
+        return new CSS2DObject(nodeExtra);
+    }
+    
+    const groups = 15
 
     // Render the graph
     return (
         <div className={"overflow-hidden"}>
             <ForceGraph3D
+                extraRenderers={[new CSS2DRenderer()]}
                 graphData={currentData}
                 nodeLabel="name" // Display movie titles
                 ref={graphRef}
                 backgroundColor={"black"}
-                nodeAutoColorBy={d => d.id % groups}
+                nodeAutoColorBy={"mainGenre"}
                 linkAutoColorBy={d => graphData.nodes[ d.source ].id % groups}
                 height={window.innerHeight - 64}
                 onNodeClick={handleClick}
+                nodeThreeObject={useMovieGraphSettings(state => state.displayNames)? nodeOverlay : null}
+                nodeThreeObjectExtend={true}
             />
             {selectedMovie ?
                 <GraphMovieDetails

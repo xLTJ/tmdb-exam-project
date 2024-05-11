@@ -1,6 +1,6 @@
 import {create} from "zustand";
 
-// State for storing the movies that are shown in the graph.
+// State for storing the movies that are shown in the graph. The methods are kinda self-explanatory.
 const useMovieStore = create(setState => ({
     movies: [],
     addMovie: (newMovie) => {
@@ -23,7 +23,7 @@ const useMovieStore = create(setState => ({
     }
 }));
 
-// State for storing the connections between the movies that are shown in the graph.
+// State for storing the connections between the movies that are shown in the graph. Again methods are self-explanatory.
 const useMovieConnectionStore = create(setState => ({
     connections: [],
     addConnection: (source, target) => {
@@ -40,6 +40,17 @@ const useMovieConnectionStore = create(setState => ({
     removeConnection: (sourceIdToRemove) => setState(state => ({
         connections: state.connections.filter((connection) => connection.source !== sourceIdToRemove)
     }))
+}));
+
+const useMovieGraphSettings = create(setState => ({
+    displayNames: true,
+    // other settings
+
+    toggleDisplayText: () => {
+        setState(state => ({
+            displayNames: !state.displayNames
+        }))
+    }
 }))
 
-export {useMovieStore, useMovieConnectionStore};
+export {useMovieStore, useMovieConnectionStore, useMovieGraphSettings};

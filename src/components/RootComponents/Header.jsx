@@ -6,7 +6,7 @@ export default function Header() {
     // Test functions
     const testAddMovie = (e) => {
         e.preventDefault()
-        useMovieStore.getState().addMovie(new Movie({id: 438631, name: "Dune"}));
+        useMovieStore.getState().addMovie(new Movie({id: 438631, name: "Dune", mainGenre: 28}));
 
         console.log(useMovieStore.getState())
         console.log(useMovieConnectionStore.getState())

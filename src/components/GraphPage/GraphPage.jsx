@@ -2,6 +2,7 @@ import Graph from "./Graph.jsx";
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 import {useEffect, useState} from "react";
 import GraphMovieDetails from "./GraphMovieDetails.jsx";
+import GraphSettings from "./GraphSettings.jsx";
 
 export default function GraphPage() {
     const movieList = useMovieStore(state => state.movies);
@@ -9,6 +10,9 @@ export default function GraphPage() {
 
     return (
         <div>
+            <div className={"absolute z-10"}>
+                <GraphSettings/>
+            </div>
             <Graph graphData={{nodes: movieList, links: connectionList}}/>
         </div>
     )

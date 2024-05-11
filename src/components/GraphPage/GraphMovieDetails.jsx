@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 import RecommendationList from "./RecommendationList.jsx";
+import movieGenres from "../../assets/data/movieGenres.json"
 
 export default function GraphMovieDetails({movieId, setSelectedMovie}) {
     const movie = useMovieStore(state => state.getMovie(movieId))
@@ -34,13 +35,14 @@ export default function GraphMovieDetails({movieId, setSelectedMovie}) {
         return (
             <div className={"flex flex-col gap-3 overflow-auto scrollbar-thin"}>
                 <p className={"font-bold"}>Release date: {movie.movieDetails.release_date}</p>
+                <p>Genre: {movieGenres.movieGenres[movie.mainGenre]}</p>
                 <p>{movie.movieDetails.overview}</p>
             </div>
         )
     }
 
     return (
-        <div className={"absolute inset-0 top-16 z-10 flex flex-col justify-center items-center"}>
+        <div className={"absolute inset-0 top-16 z-10 flex flex-col justify-center items-center z-[100000]"}>
             <div
                 className={"card card-side card-compact shrink-0 shadow-2xl bg-base-300 max-w-screen-lg max-h-80 mt-10"}>
                 {loadingDetails ? null : <figure><img
