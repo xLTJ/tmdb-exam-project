@@ -32,7 +32,7 @@ export default function Graph({graphData}) {
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
         bloomPass.strength = 2;
-        bloomPass.radius = 2;
+        bloomPass.radius = 1;
         bloomPass.threshold = 0;
 
         const composer = graphRef.current.postProcessingComposer()
