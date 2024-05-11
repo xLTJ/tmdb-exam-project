@@ -5,7 +5,7 @@ export default function GraphSettings () {
         <div className={"collapse m-10 max-w-32 z-20"}>
             <input type="checkbox" className={"peer"}/>
             <div
-                className="collapse-title text-xl font-medium bg-neutral bg-opacity-10 peer-hover:bg-opacity-60 peer-checked:bg-opacity-40">
+                className="collapse-title text-xl font-medium bg-neutral bg-opacity-20 peer-hover:bg-opacity-60 peer-checked:bg-opacity-40">
                 Settings
             </div>
             <div
