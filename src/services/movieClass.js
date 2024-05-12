@@ -6,6 +6,7 @@ export default class Movie {
         this.movieId = movieDetails.id;
         this.name = movieDetails.name;
         this.mainGenre = movieDetails.mainGenre;
+        this.posterPath = movieDetails.posterPath;
     }
 
     // Fetches detailed data for the movie
@@ -24,7 +25,7 @@ export default class Movie {
             const recommendations = recommendationsObject.results;
 
             this.connectedMovies = recommendations.map((movie) => {
-                return new Movie({id: movie.id, name: movie.original_title, mainGenre: movie.genre_ids[0]})
+                return new Movie({id: movie.id, name: movie.original_title, mainGenre: movie.genre_ids[0], posterPath: movie.poster_path})
             });
         } catch (error) {
             console.error(error);

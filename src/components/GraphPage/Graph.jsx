@@ -4,14 +4,14 @@ import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass
 import GraphMovieDetails from "./GraphMovieDetails.jsx";
 import {key} from 'react';
 import { CSS2DObject, CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
-import {useMovieGraphSettings} from "../../services/store.js";
+import {useMovieGraphSettings, useMovieStore} from "../../services/store.js";
 
 export default function Graph({graphData}) {
     const graphRef = useRef();
     const [currentData, setCurrentData] = useState({nodes: [], links: []});
     const [selectedMovie, setSelectedMovie] = useState(null);
 
-    // UseMemo to update the graphData only if the graphData changes
+    // UseMemo to update the graphData only if the graphData changes.
     const nodeSetup = useMemo(() => {
         const currentGraphNodes = graphData.nodes.map((node, index) => ({...node, id: index + 1}))
 
@@ -28,12 +28,13 @@ export default function Graph({graphData}) {
         return currentGraph;
     }, [graphData]);
 
+    // TODO: Before building the final version, revert to values in the comments as the bloom is less powerful on production mode
     // Add bloom effect to the graph
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
-        bloomPass.strength = 5;
-        bloomPass.radius = 1;
-        bloomPass.threshold = 0;
+        bloomPass.strength = 0.6; // 5
+        bloomPass.radius = 1; // 1
+        bloomPass.threshold = 0; // 0
 
         const composer = graphRef.current.postProcessingComposer()
         composer.addPass(bloomPass);
@@ -44,10 +45,12 @@ export default function Graph({graphData}) {
         setCurrentData(nodeSetup);
     }, [nodeSetup]);
 
+    // Handle clicks on the nodes
     const handleClick = (node) => {
         setSelectedMovie(node);
     }
 
+    // What to display on the nodes, currently just the movie titles (more than that would prolly make it too cluttered)
     const nodeOverlay = node => {
         const nodeExtra = document.createElement('div');
         nodeExtra.textContent = node.name;
@@ -55,23 +58,22 @@ export default function Graph({graphData}) {
         return new CSS2DObject(nodeExtra);
     }
 
-    const groups = 15
-
     // Render the graph
     return (
         <div className={"overflow-hidden"}>
             <ForceGraph3D
-                extraRenderers={[new CSS2DRenderer()]}
-                graphData={currentData}
-                nodeLabel="name" // Display movie titles
-                ref={graphRef}
-                backgroundColor={"black"}
-                nodeAutoColorBy={"mainGenre"}
-                linkAutoColorBy={d => graphData.nodes[ d.source ].id % groups}
-                height={window.innerHeight - 64}
-                onNodeClick={handleClick}
-                nodeThreeObject={useMovieGraphSettings(state => state.displayNames)? nodeOverlay : null}
-                nodeThreeObjectExtend={true}
+                extraRenderers={[new CSS2DRenderer()]} // Add the CSS2DRenderer to the graph. Needed for the nodeOverlay
+                graphData={currentData} // The data to display
+                nodeLabel="name" // Display movie titles when hovering over the nodes
+                ref={graphRef} // Reference to the graph. Needed for the post-processing.
+                backgroundColor={"black"} // Self-explanatory
+                nodeAutoColorBy={"mainGenre"} // How to color the nodes. Currently by the main genre of the movie.
+                linkAutoColorBy={node => node.source.mainGenre} // How to color the links. Currently by the main genre of the source node. Or well its supposed to... The link colors doesnt really matter tho so imma just leave it like this.
+                height={window.innerHeight - 64} // Set the height of the graph to the height of the window minus the height of the header (using hardcoded values is bad practice, but getting the height of the header dynamically is super complicated for some reason so yeah...)
+                onNodeClick={handleClick} // What to do when a node is clicked
+                onNodeRightClick={(node) => useMovieStore.getState().removeMovie(node.movieId)} // What to do when a node is right-clicked. Currently removes the node from the graph.
+                nodeThreeObject={useMovieGraphSettings(state => state.displayNames) ? nodeOverlay : null} // What to display on the nodes (the stuff in nodeOverlay)
+                nodeThreeObjectExtend={true} // Extend the node with the stuff in nodeOverlay (meaning the nodeOverlay is displayed on the node)
             />
             {selectedMovie ?
                 <GraphMovieDetails
