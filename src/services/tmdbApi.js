@@ -71,6 +71,20 @@ const TmdbApi = {
         const response = await body.json();
         return response;
     },
+    // Calls the TMDB API to get series details
+    async getSeriesDetails(id) {
+        const payload = {
+            method: 'GET',
+            headers: {
+                accept: 'application/json',
+                Authorization: `Bearer ${APIKey}`
+            },
+        }
+
+        const body = await fetch(`https://api.themoviedb.org/3/tv/${id}`, payload)
+        const response = await body.json();
+        return response;
+    },
 
     async getMovieRecommendations(id) {
         const payload = {
