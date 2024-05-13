@@ -3,38 +3,43 @@ import {useParams} from "react-router-dom";
 import tmdbApi from "../../services/tmdbApi";
 
 export default function MovieInfo() {
-    const {movieId} = useParams();
-    const [movieDetails, setMovieDetails] = useState(null);
+    const {mediaType, id} = useParams();
+    const [details, setDetails] = useState(null);
 
     useEffect(() => {
-        const fetchMovieDetails = async () => {
+        const fetchDetails = async () => {
             try {
-                const details = await tmdbApi.getMovieDetails(movieId);
-                setMovieDetails(details);
+                if (mediaType === 'movie') {
+                    const movieDetails = await tmdbApi.getMovieDetails(id);
+                    setDetails(movieDetails);
+                } else if (mediaType === 'tv') {
+                    const seriesDetails = await tmdbApi.getSeriesDetails(id);
+                    setDetails(seriesDetails);
+                }
             } catch (error) {
-                console.error("Error fetching movie details:", error);
+                console.error(`Error fetching ${mediaType} details:`, error);
             }
         };
 
-        fetchMovieDetails();
-    }, [movieId]);
+        fetchDetails();
+    }, [mediaType, id]);
 
-    if (!movieDetails) {
+    if (!details) {
         return <div>Loading...</div>;
     }
 
     return (
         <div className="container">
-            <h1>{movieDetails.title}</h1>
-            <img src={`https://image.tmdb.org/t/p/w500${movieDetails.poster_path}`} alt={movieDetails.title}/>
-            <p>{movieDetails.overview}</p>
-            <p>Release Date: {movieDetails.release_date}</p>
-            <p>Genres: {movieDetails.genres.map(genre => genre.name).join(', ')}</p>
-            <p>Production Companies: {movieDetails.production_companies.map(company => company.name).join(', ')}</p>
-            <p>Spoken Languages: {movieDetails.spoken_languages.map(language => language.name).join(', ')}</p>
-            <p>Status: {movieDetails.status}</p>
-            <p>Vote Average: {movieDetails.vote_average}</p>
-            <p>Vote Count: {movieDetails.vote_count}</p>
+            <h1>{details.title || details.name}</h1>
+            <img src={`https://image.tmdb.org/t/p/w500${details.poster_path}`} alt={details.title || details.name}/>
+            <p>{details.overview}</p>
+            <p>Release Date: {details.release_date || details.first_air_date}</p>
+            <p>Genres: {details.genres.map(genre => genre.name).join(', ')}</p>
+            <p>Production Companies: {details.production_companies.map(company => company.name).join(', ')}</p>
+            <p>Spoken Languages: {details.spoken_languages.map(language => language.name).join(', ')}</p>
+            <p>Status: {details.status}</p>
+            <p>Vote Average: {details.vote_average}</p>
+            <p>Vote Count: {details.vote_count}</p>
         </div>
     );
 }
