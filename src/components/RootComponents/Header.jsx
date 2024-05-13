@@ -1,4 +1,7 @@
 import {NavLink} from "react-router-dom";
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+import {createSearchParams} from "react-router-dom";
 import {useMovieStore, useMovieConnectionStore} from "../../services/store.js";
 import Movie from "../../services/movieClass.js";
 
@@ -11,6 +14,19 @@ export default function Header() {
         console.log(useMovieStore.getState())
         console.log(useMovieConnectionStore.getState())
     }
+    // Function to handle search input change
+    const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+    const handleSearch = (e) => {
+        e.preventDefault();
+        const searchParams = {q: searchQuery};
+        const query = createSearchParams(searchParams);
+        navigate({
+            pathname: '/search',
+            search: `?${query}`
+        });
+    }
+
 
     const testRemoveMovie = (e) => {
         e.preventDefault();
@@ -27,7 +43,15 @@ export default function Header() {
                     className={'text-primary'}>Thingy</span></NavLink>
             </div>
             <div className={'navbar-center'}>
-                <input type={'text'} placeholder={'Search movie or series'} className={'input input-primary w-96'}/>
+                <form onSubmit={handleSearch}>
+                    <input
+                        type={'text'}
+                        placeholder={'Search movie or series'}
+                        className={'input input-primary w-96'}
+                        value={searchQuery}
+                        onChange={(e) => setSearchQuery(e.target.value)}
+                    />
+                </form>
             </div>
             <div className={'navbar-end gap-2'}>
                 <div className="dropdown dropdown-end">
