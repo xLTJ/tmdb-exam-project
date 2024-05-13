@@ -30,10 +30,10 @@ export default function SearchPage() {
 
     return (
         <div className="container mx-auto">
-            <h1 className="text-3xl font-bold py-6">Search Results for "{searchParams.get('q')}"</h1>
+            <h1 className="text-3xl font-bold py-6">Search Results for &quot;{searchParams.get('q')}&quot;</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {searchResults.map((item) => (
-                    <MovieCard key={item.id} movieInfo={item} type={item.media_type}/> // Adjust this line to match the structure of your data
+                    item.media_type ? <MovieCard key={item.id} movieInfo={item} type={item.media_type}/> : null // Adjust this line to match the structure of your data
                 ))}
             </div>
         </div>
