@@ -11,8 +11,7 @@ const router = createBrowserRouter(createRoutesFromElements(
         <Route path={'/'} element={<LandingPage/>}/>
         <Route path={'/search'} element={<SearchPage/>}/>
         <Route path={'/graph'} element={<GraphPage/>}/>
-        <Route path={'/movie/:movieId'} element={<MovieInfo/>}/>
-        <Route path={'/tv/:movieId'} element={<MovieInfo/>}/>
+        <Route path={'/:mediaType/:movieId'} element={<MovieInfo/>}/>
     </Route>
 ), {basename: "/tmdb-exam-project/"})
 

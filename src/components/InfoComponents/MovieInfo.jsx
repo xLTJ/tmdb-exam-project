@@ -3,17 +3,19 @@ import {useParams} from "react-router-dom";
 import tmdbApi from "../../services/tmdbApi";
 
 export default function MovieInfo() {
-    const {mediaType, id} = useParams();
+    const {mediaType, movieId} = useParams();
     const [details, setDetails] = useState(null);
 
     useEffect(() => {
         const fetchDetails = async () => {
+            console.log(mediaType)
             try {
                 if (mediaType === 'movie') {
-                    const movieDetails = await tmdbApi.getMovieDetails(id);
+                    const movieDetails = await tmdbApi.getMovieDetails(movieId);
+                    console.log(movieDetails)
                     setDetails(movieDetails);
                 } else if (mediaType === 'tv') {
-                    const seriesDetails = await tmdbApi.getSeriesDetails(id);
+                    const seriesDetails = await tmdbApi.getSeriesDetails(movieId);
                     setDetails(seriesDetails);
                 }
             } catch (error) {
@@ -22,7 +24,7 @@ export default function MovieInfo() {
         };
 
         fetchDetails();
-    }, [mediaType, id]);
+    }, [mediaType, movieId]);
 
     if (!details) {
         return <div>Loading...</div>;
