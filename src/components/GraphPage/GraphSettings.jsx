@@ -3,14 +3,14 @@ import {useMovieGraphSettings, useMovieStore} from "../../services/store.js";
 // This component is a collapsible settings menu for the graph.
 export default function GraphSettings () {
     return (
-        <div className={"collapse m-10 max-w-36 z-20"}>
+        <div className={"collapse m-10 max-w-36 z-[100000]"}>
             <input type="checkbox" className={"peer"}/>
             <div
-                className="collapse-title text-xl font-medium bg-neutral bg-opacity-20 peer-hover:bg-opacity-60 peer-checked:bg-opacity-40">
+                className="collapse-title text-xl font-medium bg-neutral bg-opacity-20 peer-hover:bg-opacity-80 peer-checked:bg-opacity-60">
                 Settings
             </div>
             <div
-                className={"bg-neutral bg-opacity-60 collapse-content bg-opacity-10 peer-hover:bg-opacity-60 peer-checked:bg-opacity-40 flex flex-col gap-4"}>
+                className={"bg-neutral bg-opacity-60 collapse-content bg-opacity-10 peer-hover:bg-opacity-80 peer-checked:bg-opacity-60 flex flex-col gap-4"}>
                 <label>
                     <div className="divider m-0"></div>
                     <span className={"label-text"}>Node Titles</span>

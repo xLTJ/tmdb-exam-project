@@ -6,7 +6,7 @@ export default function Header() {
     // Test functions
     const testAddMovie = (e) => {
         e.preventDefault()
-        useMovieStore.getState().addMovie(new Movie({id: 438631, name: "Dune", mainGenre: 28}));
+        useMovieStore.getState().addMovie(new Movie({id: 157336, name: "Interstellar", mainGenre: 878}));
 
         console.log(useMovieStore.getState())
         console.log(useMovieConnectionStore.getState())
@@ -30,15 +30,18 @@ export default function Header() {
                 <input type={'text'} placeholder={'Search movie or series'} className={'input input-primary w-96'}/>
             </div>
             <div className={'navbar-end gap-2'}>
+                <ul className={"menu menu-horizontal text-lg gap-2 pt-0 pb-0"}>
+                    <li><NavLink to={'/graph'}>Movie Graph</NavLink></li>
+                </ul>
                 <div className="dropdown dropdown-end">
-                    <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn text-lg">Menu</div>
+                    <div tabIndex={0} role="button" className="btn btn-secondary rounded-btn text-lg">Menu</div>
                     <ul tabIndex={0}
-                        className="menu dropdown-content shadow bg-base-100 rounded-box w-52 text-base-content">
+                        className="menu dropdown-content shadow bg-base-200 rounded-box w-52 text-base-content">
                         <li><a onClick={testAddMovie}>Test Add Movie</a></li>
                         <li><a onClick={testRemoveMovie}>Test remove links</a></li>
                     </ul>
                 </div>
             </div>
         </header>
-    )
+)
 }

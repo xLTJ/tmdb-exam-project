@@ -58,7 +58,7 @@ export default function GraphMovieDetails({movieId, setSelectedMovie}) {
                         {loadingDetails ? <span className="loading loading-dots loading-lg"></span> : <MovieDetails/>}
                     </div>
                     <div className={"join"}>
-                        <Link to={`/movie/${movie.movieId}`} className={"btn btn-sm btn-neutral join-item btn-wide"}>Go to move page</Link>
+                        <Link to={`/movie/${movie.movieId}`} className={"btn btn-sm btn-neutral join-item btn-wide"}>Go to movie page</Link>
                         <button
                             className={"btn btn-sm join-item btn-error font-bold"}
                             onClick={() => {
