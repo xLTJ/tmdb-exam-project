@@ -5,7 +5,7 @@ export default function MovieRecommendation({currentMovie, movie, setSelectedMov
     useEffect(() => {
         // Fetch movie details when the component is mounted
         movie.fetchDetailedData().catch(console.error);
-    }, []);
+    }, [movie]);
     return (
         <li>
             <button
