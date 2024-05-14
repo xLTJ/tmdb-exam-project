@@ -1,9 +1,5 @@
 {
-  "ReleaseDate": [
-    "primary_release_date.gte",
-    "primary_release_date.lte"
-  ],
-  "SortBy": [
+  "sort_by": [
     "popularity.asc",
     "popularity.desc",
     "revenue.asc",
@@ -17,18 +13,18 @@
     "vote_count.asc",
     "vote_count.desc"
   ],
-  "VoteAverage": [
-    "vote_average.gte",
-    "vote_average.lte"
+  "with_genres": [
   ],
-  "Genres": [
-    "with_genres",
-    "without_genres"
+  "without_genres": [
   ],
-  "WatchProviders": [
-    "with_watch_providers"
+  "vote_average.gte": [
   ],
-  "TextQuery": [
-    "with_text_query"
+  "vote_average.lte": [
+  ],
+  "primary_release_date.gte": [
+  ],
+  "primary_release_date.lte": [
+  ],
+  "with_text_query": [
   ]
 }
