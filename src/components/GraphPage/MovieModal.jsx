@@ -39,10 +39,10 @@ export default function MovieModal({movieId, setSelectedMovie}) {
     // Component for the movie details.
     const MovieDetails = () => {
         return (
-            <div className={"flex flex-col gap-3 overflow-auto scrollbar-thin"}>
+            <div className={"flex flex-col gap-3 overflow-auto scrollbar-thin max-h-60"}>
                 <p className={"font-bold"}>Release date: {movie.movieDetails.release_date}</p>
                 <div className={"badge badge-neutral"}>{movieGenres.movieGenres[movie.mainGenre]}</div>
-                <p>{movie.movieDetails.overview}</p>
+                <p className={"overflow-auto scrollbar-thin"}>{movie.movieDetails.overview}</p>
             </div>
         )
     }
