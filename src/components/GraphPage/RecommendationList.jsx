@@ -1,11 +1,11 @@
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
 import MovieRecommendation from "./MovieRecommendation.jsx";
 
-// This component is a list of movie recommendations. Its used in the GraphMovieDetails component.
+// This component is a list of movie recommendations. Its used in the MovieModal component.
 export default function RecommendationList({currentMovie, movieList, setSelectedMovie}) {
     const addAll = async () => {
-        useMovieStore.getState().addMovies(currentMovie.connectedMovies)
         currentMovie.connectedMovies.forEach((newMovie) => {
+            useMovieStore.getState().addMovie(newMovie);
             useMovieConnectionStore.getState().addConnection(currentMovie.movieId, newMovie.movieId);
         })
     }

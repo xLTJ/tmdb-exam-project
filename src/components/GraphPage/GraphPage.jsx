@@ -1,7 +1,5 @@
 import Graph from "./Graph.jsx";
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
-import {useEffect, useState} from "react";
-import GraphMovieDetails from "./GraphMovieDetails.jsx";
 import GraphSettings from "./GraphSettings.jsx";
 
 export default function GraphPage() {

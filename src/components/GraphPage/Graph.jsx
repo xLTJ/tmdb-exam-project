@@ -1,8 +1,7 @@
 import {ForceGraph3D} from "react-force-graph";
 import {useRef, useEffect, useState, useMemo} from "react";
 import {UnrealBloomPass} from "three/examples/jsm/postprocessing/UnrealBloomPass.js"
-import GraphMovieDetails from "./GraphMovieDetails.jsx";
-import {key} from 'react';
+import MovieModal from "./MovieModal.jsx";
 import { CSS2DObject, CSS2DRenderer } from 'three/addons/renderers/CSS2DRenderer.js';
 import {useMovieGraphSettings, useMovieStore} from "../../services/store.js";
 
@@ -76,7 +75,7 @@ export default function Graph({graphData}) {
                 nodeThreeObjectExtend={true} // Extend the node with the stuff in nodeOverlay (meaning the nodeOverlay is displayed on the node)
             />
             {selectedMovie ?
-                <GraphMovieDetails
+                <MovieModal
                     key={selectedMovie.movieId}
                     movieId={selectedMovie.movieId}
                     setSelectedMovie={setSelectedMovie}

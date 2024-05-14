@@ -4,7 +4,7 @@ import RecommendationList from "./RecommendationList.jsx";
 import movieGenres from "../../assets/data/movieGenres.json"
 import {Link} from "react-router-dom";
 
-export default function GraphMovieDetails({movieId, setSelectedMovie}) {
+export default function MovieModal({movieId, setSelectedMovie}) {
     const movie = useMovieStore(state => state.getMovie(movieId))
     const [loadingDetails, setLoadingDetails] = useState(true)
     const [hasRecommendations, setHasRecommendations] = useState(false)
