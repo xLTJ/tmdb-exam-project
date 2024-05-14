@@ -8,11 +8,11 @@ export default function MovieInfo() {
 
     useEffect(() => {
         const fetchDetails = async () => {
-            console.log(mediaType)
+            console.log("Media Type: " + mediaType)
             try {
                 if (mediaType === 'movie') {
                     const movieDetails = await tmdbApi.getMovieDetails(movieId);
-                    console.log(movieDetails)
+                    console.log(`Movie Details: ${movieDetails}`)
                     setDetails(movieDetails);
                 } else if (mediaType === 'tv') {
                     const seriesDetails = await tmdbApi.getSeriesDetails(movieId);
