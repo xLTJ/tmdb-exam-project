@@ -20,7 +20,9 @@ export default function SearchPage() {
     useEffect(() => {
         const fetchData = async () => {
             try {
+                console.log("normal search");
                 const results = await tmdbApi.multiSearch(searchParams.get('q'));
+                console.log("normal search results" + results.results);
                 setSearchResults(results.results); // Adjust this line if the structure of the response is different
             } catch (error) {
                 console.error("Error fetching search results:", error);
