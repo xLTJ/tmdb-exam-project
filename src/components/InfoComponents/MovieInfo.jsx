@@ -2,11 +2,12 @@ import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import tmdbApi from "../../services/tmdbApi";
 import useAddToGraph from "../../services/AddToGraph";
+import {useMovieStore} from "../../services/store.js";
+import Movie from "../../services/movieClass.js";
 
 export default function MovieInfo() {
     const {mediaType, movieId} = useParams();
     const [details, setDetails] = useState(null);
-    const addToGraph = useAddToGraph();
 
     useEffect(() => {
         const fetchDetails = async () => {
@@ -32,6 +33,13 @@ export default function MovieInfo() {
         return <div>Loading...</div>;
     }
 
+    const movieObject = new Movie({
+        id: movieId,
+        name: details.title || details.name,
+        mainGenre: details.genres[0].id,
+        posterPath: details.poster_path,
+    })
+
     return (
         <div className="container mx-auto p-4 text-white">
             <div className="text-center">
@@ -43,7 +51,7 @@ export default function MovieInfo() {
                 <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                     <h3 className="text-lg leading-6 font-medium">Movie Details</h3>
                     {mediaType === 'movie' && (
-                        <button onClick={() => addToGraph(details)} className="btn btn-sm btn-secondary">Add Movie To
+                        <button onClick={() => useMovieStore.getState().addMovie(movieObject)} className="btn btn-sm btn-secondary">Add Movie To
                             Graph</button>
                     )}
                 </div>
