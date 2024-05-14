@@ -1,0 +1,70 @@
+{
+  "movieFilters": {
+    "ReleaseDate": [
+      "primary_release_date.gte",
+      "primary_release_date.lte"
+    ],
+    "SortBy": [
+      "popularity.asc",
+      "popularity.desc",
+      "revenue.asc",
+      "revenue.desc",
+      "primary_release_date.asc",
+      "primary_release_date.desc",
+      "title.asc",
+      "title.desc",
+      "vote_average.asc",
+      "vote_average.desc",
+      "vote_count.asc",
+      "vote_count.desc"
+    ],
+    "VoteAverage": [
+      "vote_average.gte",
+      "vote_average.lte"
+    ],
+    "Genres": [
+      "with_genres",
+      "without_genres"
+    ],
+    "WatchProviders": [
+      "with_watch_providers"
+    ],
+    "TextQuery": [
+      "with_text_query"
+    ]
+  },
+  "tvShowFilters": {
+    "FirstAirDate": [
+      "first_air_date.gte",
+      "first_air_date.lte"
+    ],
+    "SortBy": [
+      "popularity.asc",
+      "popularity.desc",
+      "revenue.asc",
+      "revenue.desc",
+      "first_air_date.asc",
+      "first_air_date.desc",
+      "title.asc",
+      "title.desc",
+      "vote_average.asc",
+      "vote_average.desc",
+      "vote_count.asc",
+      "vote_count.desc"
+    ],
+    "VoteAverage": [
+      "vote_average.gte",
+      "vote_average.lte"
+    ],
+    "Genres": [
+      "with_genres",
+      "without_genres"
+    ],
+    "WatchProviders": [
+      "with_watch_providers"
+    ],
+    "TextQuery": [
+      "with_text_query"
+    ]
+  }
+}
