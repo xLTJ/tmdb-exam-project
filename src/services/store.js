@@ -38,6 +38,7 @@ const useMovieStore = create(setState => ({
         setState(() => ({
             movies: []
         }));
+        useMovieConnectionStore.getState().removeAllConnections()
     }
 }));
 

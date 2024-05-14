@@ -32,7 +32,7 @@ export default function Graph({graphData}) {
     // Add bloom effect to the graph
     useEffect(() => {
         const bloomPass = new UnrealBloomPass();
-        bloomPass.strength = 0.6; // 5
+        bloomPass.strength = 0.5; // 5
         bloomPass.radius = 1; // 1
         bloomPass.threshold = 0; // 0
 
