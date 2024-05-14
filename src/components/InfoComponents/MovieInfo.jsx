@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import tmdbApi from "../../services/tmdbApi";
-import useAddToGraph from "../../services/AddToGraph";
 import {useMovieStore} from "../../services/store.js";
 import Movie from "../../services/movieClass.js";
 
@@ -51,7 +50,8 @@ export default function MovieInfo() {
                 <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                     <h3 className="text-lg leading-6 font-medium">Movie Details</h3>
                     {mediaType === 'movie' && (
-                        <button onClick={() => useMovieStore.getState().addMovie(movieObject)} className="btn btn-sm btn-secondary">Add Movie To
+                        <button onClick={() => useMovieStore.getState().addMovie(movieObject)}
+                                className="btn btn-sm btn-secondary">Add Movie To
                             Graph</button>
                     )}
                 </div>
