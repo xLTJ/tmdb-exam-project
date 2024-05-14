@@ -5,19 +5,23 @@ import movieGenres from "../../assets/data/movieGenres.json"
 import {Link} from "react-router-dom";
 
 export default function MovieModal({movieId, setSelectedMovie}) {
+    // Gets the movie from the store and sets the loading state. Also sets the state for recommendations.
     const movie = useMovieStore(state => state.getMovie(movieId))
     const [loadingDetails, setLoadingDetails] = useState(true)
     const [hasRecommendations, setHasRecommendations] = useState(false)
 
+    // sets the selected movie to null, closing the movie modal
     const closeWindow = () => {
         setSelectedMovie(null);
     }
 
+    // Gets movie recommendations for the movie.
     const getMovieRecommendations = async () => {
         await movie.fetchMovieRecommendations()
         setHasRecommendations(true)
     }
 
+    // Fetches movie details and recommendations for the movie when the component is loaded.
     useEffect(() => {
         console.log(movie)
         setLoadingDetails(true);
@@ -32,6 +36,7 @@ export default function MovieModal({movieId, setSelectedMovie}) {
         if (movie.connectedMovies) setHasRecommendations(true);
     }, [movie, movieId]);
 
+    // Component for the movie details.
     const MovieDetails = () => {
         return (
             <div className={"flex flex-col gap-3 overflow-auto scrollbar-thin"}>
@@ -42,6 +47,7 @@ export default function MovieModal({movieId, setSelectedMovie}) {
         )
     }
 
+    // Renders the movie modal.
     return (
         <div className={"absolute inset-0 top-16 z-10 flex flex-col justify-center items-center z-[100000]"}>
             <div
@@ -70,6 +76,7 @@ export default function MovieModal({movieId, setSelectedMovie}) {
                 </div>
                 <div className={"card-body min-w-40"}>
                     <h2 className={"font-bold text-center text-xl"}>Connections</h2>
+                    {/*If the movie has recommendations, show the recommendations. Otherwise, show a button to get recommendations.*/}
                     {!hasRecommendations ?
                         <button className={"btn btn-sm btn-secondary"} onClick={getMovieRecommendations}>Get
                                                                                                          recommendations

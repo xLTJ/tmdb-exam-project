@@ -12,15 +12,18 @@ const useMovieStore = create(setState => ({
             movies: [...state.movies, newMovie]
         }))
     },
+
     removeMovie: (movieIdToRemove) => {
         setState(state => ({
             movies: state.movies.filter((movie) => movie.movieId !== movieIdToRemove)
         }));
         useMovieConnectionStore.getState().removeConnection(movieIdToRemove);
     },
+
     getMovie: (movieId) => {
         return useMovieStore.getState().movies.find((movie) => movie.movieId === movieId);
     },
+
     removeAllMovies: () => {
         setState(() => ({
             movies: []
@@ -43,9 +46,11 @@ const useMovieConnectionStore = create(setState => ({
             connections: [...state.connections, {sourceId: source, targetId: target}]
         }))
     },
+
     removeConnection: (movieIdToRemove) => setState(state => ({
         connections: state.connections.filter((connection) => connection.sourceId !== movieIdToRemove && connection.targetId !== movieIdToRemove)
     })),
+
     removeAllConnections: () => {
         setState(() => ({
             connections: [],

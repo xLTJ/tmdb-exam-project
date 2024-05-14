@@ -15,9 +15,11 @@ export default function MovieRecommendation({currentMovie, movie, setSelectedMov
                     useMovieStore.getState().addMovie(movie, setSelectedMovie);
                     useMovieConnectionStore.getState().addConnection(currentMovie.movieId, movie.movieId);
                 }}>
+                {/*Movie poster*/}
                 <figure className={"max-w-12"}><img
                     src={`https://image.tmdb.org/t/p/w220_and_h330_face${movie.posterPath}.jpg`}
                     alt="Movie"/></figure>
+                {/*Movie name*/}
                 <div className={"card-body font-bold content-center justify-center"}>
                     <p className={"text-lg flex flex-col justify-center leading-5 line-clamp-2"}>{movie.name}</p>
                 </div>
