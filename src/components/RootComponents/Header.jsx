@@ -3,7 +3,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import {createSearchParams} from "react-router-dom";
 import {useMovieStore, useMovieConnectionStore} from "../../services/store.js";
-import Movie from "../../services/movieClass.js";
+import {Movie} from "../../services/movieClass.js";
 
 export default function Header() {
     // Test functions

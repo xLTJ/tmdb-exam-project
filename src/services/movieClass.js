@@ -4,9 +4,13 @@ import tmdbApi from "./tmdbApi.js";
 class Media {
     constructor(movieDetails) {
         this.movieId = movieDetails.id;
-        this.name = movieDetails.name;
+        this.name = movieDetails.name || movieDetails.title;
         this.mainGenre = movieDetails.mainGenre;
         this.posterPath = movieDetails.posterPath;
+    }
+
+    async fetchDetailedData() {
+        throw new Error('fetchDetailedData not implemented');
     }
 }
 
@@ -14,7 +18,6 @@ class Media {
 class Movie extends Media {
     constructor(movieDetails) {
         super(movieDetails);
-        this.name = movieDetails.name || movieDetails.title;
     }
 
     // Fetches detailed data for the movie
@@ -51,7 +54,6 @@ class Movie extends Media {
 class TVShow extends Media {
     constructor(tvShowDetails) {
         super(tvShowDetails);
-        this.posterPath = tvShowDetails.poster_path;
     }
 
     // Fetches detailed data for the TV show
@@ -65,5 +67,4 @@ class TVShow extends Media {
     }
 }
 
-export default Movie;
-export {TVShow};
+export {TVShow, Movie};

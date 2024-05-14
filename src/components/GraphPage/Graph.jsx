@@ -44,17 +44,17 @@ export default function Graph({graphData}) {
         setCurrentData(nodeSetup);
     }, [nodeSetup]);
 
-    // Handle clicks on the nodes
-    const handleClick = (node) => {
-        setSelectedMovie(node);
-    }
-
     // What to display on the nodes, currently just the movie titles (more than that would prolly make it too cluttered)
     const nodeOverlay = node => {
         const nodeExtra = document.createElement('div');
         nodeExtra.textContent = node.name;
         nodeExtra.className = "badge badge-sm bg-opacity-50 text-white z-0"
         return new CSS2DObject(nodeExtra);
+    }
+
+    // Handle clicks on the nodes
+    const handleClick = (node) => {
+        setSelectedMovie(node);
     }
 
     // Render the graph

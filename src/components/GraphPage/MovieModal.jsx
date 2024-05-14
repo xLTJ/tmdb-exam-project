@@ -61,6 +61,7 @@ export default function MovieModal({movieId, setSelectedMovie}) {
                         <div className={"tooltip flex justify-start"} data-tip={movie.name}>
                             <h2 className={"card-title text-2xl py-0 font-bold line-clamp-1 text-left"}>{movie.name}</h2>
                         </div>
+                        {/*If the movie details are loading, show a loading spinner. Otherwise show the movie details.*/}
                         {loadingDetails ? <span className="loading loading-dots loading-lg"></span> : <MovieDetails/>}
                     </div>
                     <div className={"join"}>

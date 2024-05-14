@@ -1,5 +1,5 @@
 import {useMovieStore, useMovieConnectionStore} from "./store.js";
-import Movie from './movieClass.js';
+import {Movie} from './movieClass.js';
 
 const useAddToGraph = () => {
     const movieStore = useMovieStore.getState();
