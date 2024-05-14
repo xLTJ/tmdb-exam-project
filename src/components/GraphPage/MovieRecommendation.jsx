@@ -1,7 +1,12 @@
 import {useMovieConnectionStore, useMovieStore} from "../../services/store.js";
-
+import {useEffect} from "react";
+import {Link} from "react-router-dom";
 // This component is a single movie recommendation card. Its used in the RecommendationList component.
 export default function MovieRecommendation({currentMovie, movie, setSelectedMovie}) {
+    useEffect(() => {
+        // Fetch movie details when the component is mounted
+        movie.fetchDetailedData().catch(console.error);
+    }, []);
     return (
         <li>
             <button
