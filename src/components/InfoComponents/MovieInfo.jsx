@@ -1,7 +1,6 @@
 import {useEffect, useState} from "react";
 import {useParams} from "react-router-dom";
 import tmdbApi from "../../services/tmdbApi";
-import useAddToGraph from "../../services/AddToGraph";
 import {useMovieStore} from "../../services/store.js";
 import {Movie, TVShow} from "../../services/movieClass.js";
 
