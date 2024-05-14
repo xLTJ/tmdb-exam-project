@@ -4,6 +4,7 @@ import tmdbApi from "../../services/tmdbApi";
 import useAddToGraph from "../../services/AddToGraph";
 import {useMovieStore} from "../../services/store.js";
 import Movie from "../../services/movieClass.js";
+import TVShow from "../../services/tvClass.js";
 
 export default function MovieInfo() {
     const {mediaType, movieId} = useParams();
@@ -33,12 +34,9 @@ export default function MovieInfo() {
         return <div>Loading...</div>;
     }
 
-    const movieObject = new Movie({
-        id: movieId,
-        name: details.title || details.name,
-        mainGenre: details.genres[0].id,
-        posterPath: details.poster_path,
-    })
+    const mediaObject = mediaType === 'movie' ?
+        new Movie({id: movieId, name: details.title, mainGenre: details.genres[0].id, posterPath: details.poster_path,}) :
+        new TVShow({id: movieId, name: details.name, mainGenre: details.genres[0].id, posterPath: details.poster_path,});
 
     return (
         <div className="container mx-auto p-4 text-white">
@@ -51,7 +49,7 @@ export default function MovieInfo() {
                 <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
                     <h3 className="text-lg leading-6 font-medium">Movie Details</h3>
                     {mediaType === 'movie' && (
-                        <button onClick={() => useMovieStore.getState().addMovie(movieObject)} className="btn btn-sm btn-secondary">Add Movie To
+                        <button onClick={() => useMovieStore.getState().addMovie(mediaObject)} className="btn btn-sm btn-secondary">Add Movie To
                             Graph</button>
                     )}
                 </div>
