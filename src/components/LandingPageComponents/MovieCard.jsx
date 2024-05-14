@@ -10,7 +10,7 @@ const formatDate = (dateToConvert) => {
 export default function MovieCard({movieInfo, type}) {
     // Check if the movie is a movie or a series and use the correct key for the date
     const date = type === "movie" ? formatDate(movieInfo.release_date) : formatDate(movieInfo.first_air_date)
-    console.log(movieInfo)
+    //console.log(movieInfo)
 
     return (
         <Link
