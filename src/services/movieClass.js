@@ -15,7 +15,6 @@ class Movie extends Media {
     constructor(movieDetails) {
         super(movieDetails);
         this.name = movieDetails.name || movieDetails.title;
-        this.posterPath = movieDetails.poster_path;
     }
 
     // Fetches detailed data for the movie
