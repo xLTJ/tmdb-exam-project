@@ -27,7 +27,7 @@ export default function GraphSettings () {
                     onClick={useMovieStore.getState().removeAllMovies}
                 >Remove All Movies
                 </button>
-                <span className={"text-xs"}>Tip: Right click nodes to delete them fast</span>
+                <span className={"text-xs"}>Tip: Right click nodes to delete them</span>
             </div>
         </div>
     )
