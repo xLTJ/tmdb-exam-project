@@ -1,72 +1,93 @@
 import {useFilterStore} from "../../../services/filterStore.js";
 import {useState} from "react";
+import {useSearchParams} from "react-router-dom";
 import movieFilters from "../../../assets/data/movieFilters.json";
 import tvShowFilters from "../../../assets/data/tvShowFilters.json";
 import movieGenres from "../../../assets/data/movieGenres.json";
 import tvGenres from "../../../assets/data/tvGenres.json";
-import movieWatchProviders from "../../../assets/data/movieWatchProviders.json";
-import tvWatchProviders from "../../../assets/data/tvWatchProviders.json";
 import tmdbApi from "../../../services/tmdbApi";
 import FilterDropdown from "./DropDownMenu.jsx";
-import FilterCheckbox from "./FilterCheckBox.jsx";
+import RangeSelection from "./NumiricalSelection.jsx";
 
 export default function AdvancedSearchBar({setSearchResults, setSearchQuery}) {
     const addFilter = useFilterStore(state => state.addFilter);
     const filters = useFilterStore(state => state.filters);
     const [isFiltersShown, setIsFiltersShown] = useState(false);
+    const [selectedFilterType, setSelectedFilterType] = useState('movie');
+    const [urlSearchParams] = useSearchParams();
 
-    // Construct search parameters from filters and search query.
+    // Konstruer søgeparametre fra filtre og søgeforespørgsel.
     const constructSearchParams = () => {
         const options = new URLSearchParams();
+
         for (const [key, value] of Object.entries(filters)) {
-            console.log("Filter key and value: " + key, value); // Add this line
-            if (key === "Genres") {
-                const genreIds = value.map(genre => {
-                    const genreId = Object.keys(movieGenres).find(key => movieGenres[key] === genre);
-                    return genreId || Object.keys(tvGenres).find(key => tvGenres[key] === genre);
-                });
-                options.append("with_genres", genreIds.join(","));
-                options.append("without_genres", genreIds.join(","));
-            } else if (key === "WatchProviders") {
-                const providerIds = value.map(provider => {
-                    const providerId = Object.keys(movieWatchProviders).find(key => movieWatchProviders[key] === provider);
-                    return providerId || Object.keys(tvWatchProviders).find(key => tvWatchProviders[key] === provider);
-                });
-                options.append("with_watch_providers", providerIds.join(","));
-            } else if (key === "ReleaseDate" || key === "VoteAverage") {
-                console.log("Value for ReleaseDate or VoteAverage: ", value);
-                const [gte, lte] = value.split("-");
-                options.append(`${key}.gte`, gte);
-                options.append(`${key}.lte`, lte);
-            } else if (key === "SortBy") {
-                options.append("sort_by", value);
-            } else if (key === "TextQuery") {
-                options.append("with_text_query", value);
-            } else if (key === "include_adult") {
-                options.append("include_adult", value);
+            if (Array.isArray(value)) {
+                // Hvis værdien er et array, skal du slutte elementerne med et komma for AND-operation eller en pipe for OR-operation
+                options.append(key, value.join(','));
+            } else if (value !== null && value !== "") {
+                options.append(key, value);
             }
         }
+
+        // Tilføj den oprindelige søgeforespørgsel til 'with_text_query'-parameteren
+        options.append('with_text_query', urlSearchParams.get('q'));
+
         return options;
     };
 
-    // Function to handle filter change for dropdowns
+    // Funktion til at håndtere filterændring for dropdowns
     const handleFilterChange = (filterName, newValue) => {
         addFilter(filterName, newValue);
     };
 
-    // Function to handle apply filters
+    // Funktion til at håndtere anvendelse af filtre
     const handleApplyFilters = async () => {
         const searchParams = constructSearchParams();
-        const results = await tmdbApi.discoverMovies(searchParams);
+        let results;
+        if (selectedFilterType === 'movie') {
+            results = await tmdbApi.discoverMovies(searchParams);
+        } else if (selectedFilterType === 'tv') {
+            results = await tmdbApi.discoverSeries(searchParams);
+        }
         setSearchResults(results.results);
-        console.log("filters applied"); // Add this line
-        console.log("The results data" + results.results); // Add this line
     };
 
-    // Function to handle normal search
-    const handleSearch = async (query) => {
-        const results = await tmdbApi.multiSearch(query);
-        setSearchResults(results.results);
+    // Funktion til at gengive filterdropdown eller rækkevalg baseret på filtertype
+    const renderFilter = (filterCategory, filterValues, isMovie) => {
+        if (filterCategory === 'with_genres' || filterCategory === 'without_genres') {
+            const genres = isMovie ? movieGenres.movieGenres : tvGenres.tvGenres;
+            return (
+                <FilterDropdown
+                    key={filterCategory}
+                    title={filterCategory}
+                    options={Object.entries(genres).map(([id, name]) => (
+                        {value: id, label: name}
+                    ))}
+                    handleFilterChange={handleFilterChange}
+                />
+            );
+        } else if (
+            filterCategory === 'primary_release_date.gte' ||
+            filterCategory === 'primary_release_date.lte' ||
+            filterCategory === 'vote_average.gte' ||
+            filterCategory === 'vote_average.lte' ||
+            filterCategory === 'first_air_date.gte' ||
+            filterCategory === 'first_air_date.lte' ||
+            filterCategory === 'with_text_query'
+        ) {
+            return <RangeSelection key={filterCategory} title={filterCategory}/>;
+        } else {
+            return (
+                <FilterDropdown
+                    key={filterCategory}
+                    title={filterCategory}
+                    options={filterValues.map(filterValue => (
+                        {value: filterValue, label: filterValue} // antager, at etiketten og værdien er den samme
+                    ))}
+                    handleFilterChange={handleFilterChange}
+                />
+            );
+        }
     };
 
     return (
@@ -74,43 +95,35 @@ export default function AdvancedSearchBar({setSearchResults, setSearchQuery}) {
             <div className={"card-body"}>
                 <h2 className={"card-title text-4xl font-bold mb-10 justify-center"}>Advanced Search</h2>
 
-                {/* Button to toggle filters */}
+                {/* Tilføj knapper til at vælge filtertype */}
+                <div className="flex justify-between mb-4">
+                    <button onClick={() => setSelectedFilterType('movie')}>Movie Filters</button>
+                    <button onClick={() => setSelectedFilterType('tv')}>TV Show Filters</button>
+                </div>
+
+                {/* Knap til at skifte filtre */}
                 <button onClick={() => setIsFiltersShown(!isFiltersShown)}>
                     {isFiltersShown ? "Hide Filters" : "Show Filters"}
                 </button>
 
-                {/* Render FilterDropdowns for each filter category and the Apply Filters button if filters are shown */}
+                {/* Gengiv FilterDropdowns for hver filterkategori og knappen Anvend filtre, hvis filtre vises */}
                 {isFiltersShown && (
-                    <div className="flex justify-between">
-                        <div className="w-full pr-2">
-                            {Object.entries(movieFilters).map(([filterCategory, filterValues]) => (
-                                <FilterDropdown
-                                    key={filterCategory}
-                                    title={filterCategory}
-                                    options={filterValues.map(filterValue => (
-                                        {value: filterValue, label: filterValue} // assuming the label and value are the same
-                                    ))}
-                                    handleFilterChange={handleFilterChange}
-                                />
-                            ))}
+                    <div className="flex flex-col justify-between flex-grow">
+                        <div className="w-full pr-2 flex-grow">
+                            {selectedFilterType === 'movie' && Object.entries(movieFilters).map(([filterCategory, filterValues]) => {
+                                return renderFilter(filterCategory, filterValues, true);
+                            })}
                         </div>
 
-                        <div className="w-full pl-2">
-                            {Object.entries(tvShowFilters).map(([filterCategory, filterValues]) => (
-                                <FilterDropdown
-                                    key={filterCategory}
-                                    title={filterCategory}
-                                    options={filterValues.map(filterValue => (
-                                        {value: filterValue, label: filterValue} // assuming the label and value are the same
-                                    ))}
-                                    handleFilterChange={handleFilterChange}
-                                />
-                            ))}
+                        <div className="w-full pl-2 flex-grow">
+                            {selectedFilterType === 'tv' && Object.entries(tvShowFilters).map(([filterCategory, filterValues]) => {
+                                return renderFilter(filterCategory, filterValues, false);
+                            })}
                         </div>
                     </div>
                 )}
 
-                {/* Button to apply filters */}
+                {/* Knap til at anvende filtre */}
                 {isFiltersShown && (
                     <button className={"btn btn-primary"} onClick={handleApplyFilters}>Apply Filters</button>
                 )}

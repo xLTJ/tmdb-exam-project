@@ -1,20 +1,15 @@
-import {useFilterStore} from "../../../services/filterStore.js";
+import FilterCheckbox from "./FilterCheckBox.jsx";
 
 export default function FilterDropdown({title, options}) {
-    const addFilter = useFilterStore(state => state.addFilter);
-
-    const handleFilterChange = (value) => {
-        addFilter(title, value);
-    };
-
     return (
-        <div>
-            <h3>{title}</h3>
-            <select onChange={(e) => handleFilterChange(e.target.value)}>
-                {options.map(option => (
-                    <option key={option.value} value={option.value}>{option.label}</option>
+        <div className="collapse collapse-arrow bg-base-200">
+            <input type="checkbox"/>
+            <div className="collapse-title text-xl font-bold">{title}</div>
+            <div className="collapse-content flex flex-col">
+                {options.map((option, index) => (
+                    <FilterCheckbox key={index} filter={title} value={option.label} id={option.value}/>
                 ))}
-            </select>
+            </div>
         </div>
     );
 }

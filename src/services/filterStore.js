@@ -2,12 +2,32 @@ import {create} from "zustand";
 
 const useFilterStore = create((set) => ({
     filters: {
-        ReleaseDate: [],
-        SortBy: [],
-        VoteAverage: [],
-        Genres: [],
-        WatchProviders: [],
-        TextQuery: [],
+        sort_by: [],
+        with_genres: [],
+        without_genres: [],
+        'primary_release_date.gte': [],
+        'primary_release_date.lte': [],
+        "first_air_date.gte": [],
+        "first_air_date.lte": [],
+        'vote_average.lte': [],
+        'vote_average.gte': [],
+        with_text_query: [],
+
+        /*
+        include_adult: false,
+        sort_by: 'popularity.desc',
+        with_genres: [],
+        with_watch_providers: [],
+        without_genres: [],
+        primary_release_date_gte: '',
+        primary_release_date_lte: '',
+        vote_average_gte: '',
+        vote_average_lte: '',
+        with_text_query: '',
+        first_air_date_gte: '',
+        first_air_date_lte: '',
+        */
+
     },
 
     addFilter: (filterName, newValue) => {
@@ -51,12 +71,16 @@ const useFilterStore = create((set) => ({
     resetFilters: () => {
         set({
             filters: {
-                ReleaseDate: [],
-                SortBy: [],
-                VoteAverage: [],
-                Genres: [],
-                WatchProviders: [],
-                TextQuery: [],
+                sort_by: [],
+                with_genres: [],
+                without_genres: [],
+                'primary_release_date.gte': [],
+                'primary_release_date.lte': [],
+                'first_air_date.gte': [],
+                'first_air_date.lte': [],
+                'vote_average.lte': [],
+                'vote_average.gte': [],
+                with_text_query: [],
             }
         })
     }
