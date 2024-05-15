@@ -37,7 +37,7 @@ export default function SearchPage() {
     return (
         <div className="container mx-auto">
             <AdvancedSearchBar setSearchResults={setSearchResults} setSearchQuery={setSearchParams}/>
-            <h1 className="text-3xl font-bold py-6">Søgeresultater for "{searchParams.get('q')}"</h1>
+            <h1 className="text-3xl font-bold py-6">Search Results for "{searchParams.get('q')}"</h1>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {/* Kortlægning af søgeresultater til MovieCard-komponenter */}
                 {searchResults.map((item) => (
