@@ -93,29 +93,29 @@ export default function AdvancedSearchBar({setSearchResults, setSearchQuery}) {
     return (
         <div className={"bg-base-300 mt-10 card min-w-96"}>
             <div className={"card-body"}>
-                <h2 className={"card-title text-4xl font-bold mb-10 justify-center"}>Avanceret søgning</h2>
+                <h2 className={"card-title text-4xl font-bold mb-10 justify-center"}>Advanced Search</h2>
 
                 {/* Tilføj knapper til at vælge filtertype */}
-                <div className="flex justify-between mb-4"> {/* Tilføj denne div */}
-                    <button onClick={() => setSelectedFilterType('movie')}>Filmfiltre</button>
-                    <button onClick={() => setSelectedFilterType('tv')}>TV-showfiltre</button>
+                <div className="flex justify-between mb-4">
+                    <button onClick={() => setSelectedFilterType('movie')}>Movie Filters</button>
+                    <button onClick={() => setSelectedFilterType('tv')}>TV Show Filters</button>
                 </div>
 
                 {/* Knap til at skifte filtre */}
                 <button onClick={() => setIsFiltersShown(!isFiltersShown)}>
-                    {isFiltersShown ? "Skjul filtre" : "Vis filtre"}
+                    {isFiltersShown ? "Hide Filters" : "Show Filters"}
                 </button>
 
                 {/* Gengiv FilterDropdowns for hver filterkategori og knappen Anvend filtre, hvis filtre vises */}
                 {isFiltersShown && (
-                    <div className="flex flex-col justify-between flex-grow"> {/* Ændre denne div */}
-                        <div className="w-full pr-2 flex-grow"> {/* Ændre denne div */}
+                    <div className="flex flex-col justify-between flex-grow">
+                        <div className="w-full pr-2 flex-grow">
                             {selectedFilterType === 'movie' && Object.entries(movieFilters).map(([filterCategory, filterValues]) => {
                                 return renderFilter(filterCategory, filterValues, true);
                             })}
                         </div>
 
-                        <div className="w-full pl-2 flex-grow"> {/* Ændre denne div */}
+                        <div className="w-full pl-2 flex-grow">
                             {selectedFilterType === 'tv' && Object.entries(tvShowFilters).map(([filterCategory, filterValues]) => {
                                 return renderFilter(filterCategory, filterValues, false);
                             })}
@@ -125,7 +125,7 @@ export default function AdvancedSearchBar({setSearchResults, setSearchQuery}) {
 
                 {/* Knap til at anvende filtre */}
                 {isFiltersShown && (
-                    <button className={"btn btn-primary"} onClick={handleApplyFilters}>Anvend filtre</button>
+                    <button className={"btn btn-primary"} onClick={handleApplyFilters}>Apply Filters</button>
                 )}
             </div>
         </div>
