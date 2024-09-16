@@ -1,8 +1,8 @@
-# React + Vite
+Webapp for searching up movie information and getting movie recomendations. Includes a 3d graph where the movies were shown as nodes with connections to eachother based on how they were recommended which is pretty cool i guess.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![image](https://github.com/user-attachments/assets/9432725f-90c7-4711-ae1e-c77a8d94394f)
 
-Currently, two official plugins are available:
+![image](https://github.com/user-attachments/assets/02498eff-2129-442c-8c43-1385eb8d1c3e)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![image](https://github.com/user-attachments/assets/a77ead3d-8265-4a15-9edf-7219fdc88207)
+
